@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"   th:replace="normal/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="${title}"></title>
+</head>
+<body>
+<section>
+
+    <div class="card mt-2 mr-4">
+        <div class="card-body">
+            <div class="text-center font-weight-bold h2">
+                <i class="fa-solid fa-address-book"></i> Update Contact
+            </div>
+            <div><span th:text="${imagevalue}"></span> </div>
+            <div class="container-fluid-mt-1">
+
+                <div class="row">
+
+                    <div class="col-md-10 offset-md-1">
+
+                        <form
+                                th:action="@{/user/process-update}" method="POST"
+                                enctype="multipart/form-data" class="mt-4"
+                                th:object="${contact}">
+
+                            <div class="form-row">
+                                <input  type="hidden" th:value="@{contact.cid}" name ="cid">
+
+                                <!-- First name -->
+                                <div class="form-group col-md-6">
+                                    <label for="inputFname"><i class="fa-solid fa-user"></i>
+                                        FirstName</label> <input th:value="${contact.name}" type="text" name="name" class="form-control"
+                                                                 required
+                                                                 id="inputFname" placeholder="Enter Name Here">
+                                </div>
+
+                                <!-- Second name -->
+                                <div class="form-group col-md-6">
+                                    <label for="inputLname"><i class="fa-solid fa-user"></i>
+                                        LastName</label> <input th:value="${contact.secondname}" type="text" name="secondname"
+                                                                class="form-control" id="inputLname"
+                                                                required
+                                                                placeholder="Enter Name Here">
+                                </div>
+
+                                <!-- Phone Number -->
+                                <div class="form-group col-md-6">
+                                    <label for="inputPhone"><i class="fa-solid fa-phone"></i>
+                                        Phone</label> <input  th:value="${contact.phone}" type="number" name="phone" class="form-control"
+                                                             id="inputPhone" placeholder="Enter Phone Number"
+                                                             required>
+
+                                </div>
+
+                                <!-- Email field -->
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail"><i class="fa-solid fa-at"></i>
+                                        Email</label> <input th:value="${contact.email}" type="email" name="email" class="form-control"
+
+                                                             th:classappend="${#fields.hasErrors('email')? 'is-invalid':''}"
+                                                             id="inputEmail" placeholder="Enter Email">
+
+                                    <div class="invalid-feedback" th:each="e : ${#fields.errors('email')}" th:text="${e}">
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </div>
+
+                            <!-- Work Field -->
+                            <div class="form-group">
+                                <label ><i
+                                        class="fa-solid fa-briefcase"></i> Work</label> <input   th:value="${contact.work}" type="text"
+                                                                                               name="work" class="form-control" id="inputWork"
+
+                                                                                               placeholder="Enter Work Here">
+                            </div>
+
+                            <!-- Contact Description Field -->
+                            <div class="form-group">
+                                <label >Contact
+                                    Description</label>
+                                <textarea  th:text="${contact.description}" class="form-control" name="description"
+
+                                          id="inputDescription" rows="3"></textarea>
+                            </div>
+
+                            <!-- Contact Image -->
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Upload  New Image</label>
+
+                                <input type="file" name="profileimage" class="form-control" id="formFile">
+                            </div>
+
+                            <div class="container text-center">
+                                <button type="submit" class="btn btn-primary">Save
+                                    Contact</button>
+                            </div>
+
+                        </form>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- tiny mce editor  -->
+    <!-- step 1. -->
+    <script src="https://cdn.tiny.cloud/1/f9jmgqeloz54xamla8ke1kej5axqm69o2vdvu70v3dkz3p98/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <!-- step 2.  -->
+    <script>
+      tinymce.init({
+        selector: '#inputDescription'
+      });
+    </script>
+
+
+
+
+</section>
+</body>
+</html>
